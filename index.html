@@ -41,24 +41,32 @@
 <span class="nb">install_github</span>(<span class="s1">"cdries/rTrawl"</span>)</pre>
         </div>
 
-        <h2>Part 1</h2>
+        <h2>Part 1: simulation</h2>
         <p>TODO: SIMULATION</p>
 
 
-        <h2>Part 2</h2>
+        <h2>Part 2: estimation</h2>
         <p>TODO: ESTIMATION</p>
         
         
-        <h2>Part 3</h2>
-        <p>TODO: VIGNETTE The documentation of the added functions is written to accommodate these changes and a vignette is added explaining all the new comoment estimators. The vignette can also be downloaded <a href="https://github.com/cdries/GSoC2018/tree/master/files">here</a>.</p>
+        <h2>Part 3: documentation and vignette</h2>
+        <p>All the public functions are completely documented, each with several working examples. These examples serve as starting point for the package vignette, where all functionality is demonstrated in more detail. The vignette covers simulation of univariate and multivariate trawl processes, estimation of univariate and multivariate trawl processes using the methods in Barndorff-Nielsen et al. (2014), Shephard and Yang (2017) and Veraart (2018).</p>
+        
+        <p>The vignette is available when installing the <a href="https://github.com/cdries/rTrawl">rTrawl</a> and can also be downloaded <a href="https://github.com/cdries/GSoC2018/tree/master/files">here</a>.</p>
         
         
-        <h2>Further work</h2> 
-        <p>TODO</p>
+        <h2>Thoughts and further work</h2> 
+        <p>Near the end of the project, I started implementing a bootstrap procedure to obtain confidence intervals for the estimated model parameters. This does work in the univariate setting when estimating the trawl parameters in the current package version. However, a bootstrap procedure for the Lévy parameters still has to be implemented, as well as a procedure for the multivariate case.</p>
+        
+        <p>At the moment, the package is very functional, but requires the input in list format and returns output in list format. I could change this to classes and objects if this proves easier to handle as a user. Also, time series are given as vectors with index stamps and values instead of a traditional time series object. Functionality for handling xts objects will be implemented in the future.</p>
         
         
         <h2>References</h2> 
-        <p>TODO</p>   </section>
+        <p>Barndorff‐Nielsen, O. E., Lunde, A., Shephard, N., & Veraart, A. E. (2014). Integer‐valued Trawl Processes: A Class of Stationary Infinitely Divisible Processes. Scandinavian Journal of Statistics, 41(3), 693-724.</p>
+
+        <p>Shephard, N., & Yang, J. J. (2017). Continuous time analysis of fleeting discrete price moves. Journal of the American Statistical Association, 112(519), 1090-1106.</p>
+
+        <p>Veraart, A. E. (2018). Modelling, simulation and inference for multivariate time series of counts. arXiv preprint arXiv:1608.03154.</p>   </section>
 
         <aside id="sidebar">
           <a href="https://github.com/cdries/rTrawl/archive/master.zip" class="button">
