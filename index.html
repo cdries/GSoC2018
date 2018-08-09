@@ -30,7 +30,7 @@
         <section id="main-content">
 
         <h1>GSoC 2018 project by cdries</h1>
-        <p>This project implements functionality for simulating and estimating trawl processes in the R packages <a href="https://github.com/cdries/rTrawl">rTrawl</a>. First, TODO. Second, TODO, previously unavailable for the community. This project page gives a summary of the work done during Google Summer of Code 2018. </p>
+        <p>This project implements functionality for simulating and estimating trawl processes in the R packages <a href="https://github.com/cdries/rTrawl">rTrawl</a>. First, a modular simulation framework is implemented for univariate and multivariate trawl processes. Second, state-of-the art estimation methods doumented in Barndorff-Nielsen et al. (2014), Shephard and Yang (2017) and Veraart (2018) are coded. All code is documented and a package vignette gives an in depth overview, along with a realistic use case in high frequency econometrics. This project page gives a summary of the work done during Google Summer of Code 2018. </p>
         
         <p>The project is done under guidance of Brian Peterson, Kris Boudt and Peter Carl.</p>
         
@@ -42,11 +42,23 @@
         </div>
 
         <h2>Part 1: simulation</h2>
-        <p>TODO: SIMULATION</p>
+        <p>A first important part of this project is to provide a simple framework to simulate a variety of trawl processes, both univariate and multivariate. Except for the sim_trawl wrapper function in R, all code is written using <a href="https://github.com/RcppCore/RcppArmadillo">RcppArmadillo</a> by Eddelbuettel et al. (2018) and can be found in the src folder.</p>
+        
+        <p>Currently, there is a choice between the following univariate Lévy bases: Poisson, Skellam, Negative Binomial and difference of two Negative Binomials. In the multivariate case, one has the choice between a Poisson, Skellam and Negative Binomial basis.</p>
+        
+        <p>Each of the following trawl functions is possible in the univariate and multivariate setups: exponential, gamma, inverse Gaussian and generalized inverse Gaussian.</p>
+        
+        <p>I have written the package in a modular way, hence facilitating extensions. If you wish to add a Lévy basis or trawl function, then this can easily be done by adding a file containing the necessary functions and adding the new option to the available wrapper functions. The necessary functions can be found by looking at the levy_poisson.cpp or trawl_exp.cpp files.</p>
+        
+        <p>The simulation framework implemented in the package makes it possible to simulate all univariate trawl processes considered in Barndorff-Nielsen et al. (2014) and Shephard and Yang (2017), and all multivariate processes found in Veraart (2018).</p>
 
 
         <h2>Part 2: estimation</h2>
-        <p>TODO: ESTIMATION</p>
+        <p>After building the simulation framework, I coded the tools to estimate the model parameters when given a trawl process. These estimators were proposed in Barndorff-Nielsen et al. (2014), Shephard and Yang (2017) and Veraart (2018), where they are described in detail.</p>
+        
+        <p>For stationary trawl processes, estimation is a two-step procedure. First, the trawl parameters are estimated based on the empirical autocorrelation up to a certain lag, as proposed in Barndorff-Nielsen et al. (2014) for the univariate case and Veraart (2018) in the multivariate case. Then, once the trawl functions are known, the empirical moments are used as input for the method of moments in order to find the parameters of the underlying Lévy measure.</p>
+        
+        <p>Previous two-step procedure is restricted to stationary trawl processes. Estimation of nonstationary trawl processes is available using the variance signature plot, as proposed in Shephard and Yang (2017). This is a joint procedure fitting a parametric trawl and nonparametric Lévy measure. If a parametric Lévy measure is preferred, this can be obtained in a second step, similar to the two-step procedure in the stationary case. Note that this estimation approach also works for stationary trawl proesses.</p>
         
         
         <h2>Part 3: documentation and vignette</h2>
@@ -63,6 +75,9 @@
         
         <h2>References</h2> 
         <p>Barndorff‐Nielsen, O. E., Lunde, A., Shephard, N., & Veraart, A. E. (2014). Integer‐valued Trawl Processes: A Class of Stationary Infinitely Divisible Processes. Scandinavian Journal of Statistics, 41(3), 693-724.</p>
+
+        <p>Eddelbuettel, D., François, R., Bates, D., & Ni, B. 2018. RcppAr-
+madillo: Rcpp Integration for Armadillo Templated Linear Algebra Library. R Package Version 0.8.600.0.0.</p>
 
         <p>Shephard, N., & Yang, J. J. (2017). Continuous time analysis of fleeting discrete price moves. Journal of the American Statistical Association, 112(519), 1090-1106.</p>
 
